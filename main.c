@@ -40,7 +40,7 @@ int main()
       case 1:
       addStudent();
       break;
-      /*case 2:
+      case 2:
       deleteStudent();
       break;
       case 3:
@@ -51,7 +51,7 @@ int main()
       break;
       case 5:
       searchStudent();
-      break;*/
+      break;
       case 6:
       exit(0);
     
