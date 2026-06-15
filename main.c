@@ -13,19 +13,19 @@ struct Student{
     float marks[5];
     float total;
     float percentage;
-    char subject[5];
+    char subject[5][30];
 };
 int main()
 {
     int choice=0;
     nepal:
-    printf("\n====Student Record Management System====\n");
-    printf("1.Add student\n");
-    printf("2.Delete student\n");
-    printf("3.Display all student\n");
-    printf("4.Update student\n");
-    printf("5.Search student\n");
-    printf("6.Exit\n");
+    printf("\n\t\t\t====Student Record Management System====\n");
+    printf("\n\t\t\t1.Add student");
+    printf("\n\t\t\t2.Delete student");
+    printf("\n\t\t\t3.Display all student");
+    printf("\n\t\t\t4.Update student");
+    printf("\n\t\t\t5.Search student");
+    printf("\n\t\t\t6.Exit\n");
     printf("Enter your choice: ");
     scanf("%d",&choice);
      if(choice<1||choice>6)
@@ -54,14 +54,15 @@ int main()
       break;
       case 6:
       exit(0);
-      return 0;
+    
     }
 }
+return 0;
 }
   void addStudent()
     { 
     
-        struct student s;
+        struct Student s;
         s.total=0;
         int i=0;
         FILE*p;
@@ -71,28 +72,30 @@ int main()
             printf("\n Sorry file not found");
             exit(0);
         }
-        printf("\n===Add Student Information===\n");
-        printf("\n Enter name of student:");
+        printf("\n\t\t\t===Add Student Information===\n");
+        fflush(stdin);
+        printf("\n\t\t\tEnter name of student:");
         gets(s.name);
         fflush(stdin);
-        printf("\n Enter address:");
+        printf("\n\t\t\tEnter address:");
         gets(s.address);
         fflush(stdin);
-        printf("\n Enter id :");
+        printf("\n\t\t\tEnter id :");
         scanf("%d",&s.id);
         fflush(stdin);
-        printf("\n Marks\n");
+        printf("\n\t\t\tMarks\n");
         for(i=0;i<5;i++)
         {
-           printf("\n Enter subject name:");
-           gets(s[i].subject);
            fflush(stdin);
-           printf("\n Enter marks:");
+		   printf("\n\t\t\tEnter Subject name:");
+           gets(s.subject[i]);
+           fflush(stdin);
+           printf("\n\t\t\t Enter marks:");
            scanf("%f",&s.marks[i]);
            s.total=s.total+s.marks[i];
         }
         s.percentage=s.total/5;
-        printf("\n Total Percentage : %f/n",s.percentage);
+        printf("\n Total Percentage : %f",s.percentage);
         fflush(stdin);
         fwrite(&s,sizeof(s),1,p);
         fclose(p);
