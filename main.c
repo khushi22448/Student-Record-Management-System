@@ -40,7 +40,7 @@ int main()
       case 1:
       addStudent();
       break;
-      case 2:
+      /*case 2:
       deleteStudent();
       break;
       case 3:
@@ -51,7 +51,7 @@ int main()
       break;
       case 5:
       searchStudent();
-      break;
+      break;*/
       case 6:
       exit(0);
     
@@ -96,7 +96,7 @@ return 0;
         }
         s.percentage=s.total/5;
         printf("\n\t\t\tTotal Percentage : %f",s.percentage);
-        printf("\n\t\t\t Record Added Succesfully");
+        printf("\n\t\t\t**Record Added Succesfully**");
         fflush(stdin);
         fwrite(&s,sizeof(s),1,p);
         fclose(p);
