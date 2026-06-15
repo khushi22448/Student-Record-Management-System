@@ -26,7 +26,7 @@ int main()
     printf("\n\t\t\t4.Update student");
     printf("\n\t\t\t5.Search student");
     printf("\n\t\t\t6.Exit\n");
-    printf("Enter your choice: ");
+    printf("\t\t\tEnter your choice: ");
     scanf("%d",&choice);
      if(choice<1||choice>6)
     {
@@ -95,7 +95,8 @@ return 0;
            s.total=s.total+s.marks[i];
         }
         s.percentage=s.total/5;
-        printf("\n Total Percentage : %f",s.percentage);
+        printf("\n\t\t\tTotal Percentage : %f",s.percentage);
+        printf("\n\t\t\t Record Added Succesfully");
         fflush(stdin);
         fwrite(&s,sizeof(s),1,p);
         fclose(p);
