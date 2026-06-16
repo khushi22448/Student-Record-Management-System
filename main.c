@@ -44,8 +44,6 @@ int main()
       deleteStudent();
       break;
       case 3:
-      break;
-      case 3:
       displayStudent();
       break;
      case 4:
@@ -70,7 +68,7 @@ return 0;
         int i=0;
         char confirm=0;
         FILE*p;
-        p=fopen("student.txt","wb");
+        p=fopen("student.txt","ab");
         if(p==NULL)
         {
             printf("\n Sorry file not found");
