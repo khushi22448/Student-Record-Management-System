@@ -49,8 +49,8 @@ int main()
       displayStudent();
       break;
      case 4:
-      updateStudent();
-      break;*/
+     updateStudent();
+      break;
       case 5:
       searchStudent();
       break;
