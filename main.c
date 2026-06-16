@@ -66,7 +66,7 @@ return 0;
         s.total=0;
         int i=0;
         FILE*p;
-        p=fopen("student.txt","a");
+        p=fopen("student.txt","ab");
         if(p==NULL)
         {
             printf("\n Sorry file not found");
@@ -101,4 +101,54 @@ return 0;
         fwrite(&s,sizeof(s),1,p);
         fclose(p);
   
+    }
+    void deleteStudent()
+    {
+        struct Student a;
+        int id=0,found=0;
+        char confirm=0;
+        FILE *p,*temp;
+        p=fopen("student.txt","rb");
+        temp=fopen("temp.txt","wb");
+        if(p==NULL||temp==NULL)
+        {
+            printf("\nSorry file not opened!");
+            exit(0);
+        }
+        printf("Enter student ID: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fread(&a,sizeof(a),1,p))
+        {
+            if(a.id==id)
+            {
+                found=1;
+                printf("\nStudent found!\n");
+                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %2f",a.id,a.name,a.address,a.percentage);
+                fflush(stdin);
+                printf("\nAre you sure you want to delete this record? (Y/N): ");
+                scanf("%c",&confirm);
+                fflush(stdin);
+                if(confirm=='y'||confirm=='Y')
+                {
+                    printf("\nRecord deleted sucessfully!");
+                }
+                else
+                {
+                    fwrite(&a,sizeof(a),1,temp);
+                    printf("\nDeletion Cancelled!\n");
+                }
+            }
+            else
+            {
+                fwrite(&a,sizeof(a),1,temp);
+            }
+        }
+        fclose(p);
+        fclose(temp);
+        remove("student.txt");
+        rename("temp.txt", "student.txt");
+
+    if(!found)
+        printf("\nStudent not found!\n");
     }
