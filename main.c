@@ -3,8 +3,8 @@
 #include<string.h>
 void addStudent();
 void deleteStudent();
-void displayStudent();
-void updateStudent();
+//void displayStudent();
+//void updateStudent();
 void searchStudent();
 struct Student{
     char name[50];
@@ -43,12 +43,12 @@ int main()
       case 2:
       deleteStudent();
       break;
-      case 3:
+      /*case 3:
       displayStudent();
       break;
       case 4:
       updateStudent();
-      break;
+      break;*/
       case 5:
       searchStudent();
       break;
@@ -151,4 +151,37 @@ return 0;
 
     if(!found)
         printf("\nStudent not found!\n");
+    }
+    void searchStudent()
+    {
+        struct Student s;
+        int id=0,found=0,i=0;
+        FILE *p;
+        p=fopen("student.txt","rb");
+        if(p==NULL)
+        {
+            printf("\nSorry file not opened!");
+            exit(0);
+        }
+        printf("Enter student ID: ");
+        scanf("%d",&id);
+        while(fread(&s,sizeof(s),1,p))
+        {
+            if(s.id==id)
+            {
+                found=1;
+                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %f\n",s.id,s.name,s.address,s.percentage);
+                printf("\tMarks\n");
+                for(i=0;i<5;i++)
+                {
+                    printf("%s : %f\n",s.subject[i],s.marks[i]);
+                    fflush(stdin);
+                }
+            }
+        }
+        if(!found)
+        {
+            printf("\nStudent not found!!");
+        }
+        fclose(p);
     }
