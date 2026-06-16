@@ -18,7 +18,8 @@ struct Student{
 int main()
 {
     int choice=0;
-    nepal:
+    while(1)
+    {
     printf("\n\t\t\t====Student Record Management System====\n");
     printf("\n\t\t\t1.Add student");
     printf("\n\t\t\t2.Delete student");
@@ -31,7 +32,6 @@ int main()
      if(choice<1||choice>6)
     {
         printf("\n Wrong choice");
-        goto nepal;
     }
     else
     {
@@ -42,11 +42,11 @@ int main()
       break;
       case 2:
       deleteStudent();
-      break;
+      break;*/
       case 3:
       displayStudent();
       break;
-      case 4:
+     case 4:
       updateStudent();
       break;
       case 5:
@@ -56,6 +56,7 @@ int main()
       exit(0);
     
     }
+ }
 }
 return 0;
 }
@@ -65,13 +66,16 @@ return 0;
         struct Student s;
         s.total=0;
         int i=0;
+        char confirm=0;
         FILE*p;
-        p=fopen("student.txt","a");
+        p=fopen("student.txt","wb");
         if(p==NULL)
         {
             printf("\n Sorry file not found");
             exit(0);
         }
+        do
+        {
         printf("\n\t\t\t===Add Student Information===\n");
         fflush(stdin);
         printf("\n\t\t\tEnter name of student:");
@@ -98,7 +102,34 @@ return 0;
         printf("\n\t\t\tTotal Percentage : %f",s.percentage);
         printf("\n\t\t\t**Record Added Succesfully**");
         fflush(stdin);
-        fwrite(&s,sizeof(s),1,p);
+         fwrite(&s,sizeof(s),1,p);
+        printf("\n\t\t\tAdd more students(y/n)?");
+        scanf(" %c",&confirm);
+        printf("\n\t\t\t----------------------------------------");
+        fflush(stdin);
+    }
+    while(confirm=='y'||confirm=='Y');
+        
+        fclose(p);  
+    }
+    void displayStudent()
+    {
+       struct Student b;
+       FILE*p;
+       p=fopen("student.txt","rb");
+        if(p==NULL)
+        {
+            printf("\n Sorry file not found");
+            exit(0);
+        }
+        printf("\n\t\t\t===Student Information===\n");
+        printf("\n\t\t\tName\tAddress\tId\tPercentage\n");
+		while(fread(&b,sizeof(b),1,p))
+        {
+		printf("\n\t\t\t%s\t%s\t%d\t%f",b.name,b.address,b.id,b.percentage);
+         
+     	}
         fclose(p);
-  
+
+
     }
