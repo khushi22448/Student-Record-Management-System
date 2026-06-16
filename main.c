@@ -42,13 +42,15 @@ int main()
       break;
       case 2:
       deleteStudent();
-      break;*/
+      break;
+      case 3:
+      break;
       case 3:
       displayStudent();
       break;
      case 4:
       updateStudent();
-      break;
+      break;*/
       case 5:
       searchStudent();
       break;
@@ -132,4 +134,87 @@ return 0;
         fclose(p);
 
 
+    }
+    void deleteStudent()
+    {
+        struct Student a;
+        int id=0,found=0;
+        char confirm=0;
+        FILE *p,*temp;
+        p=fopen("student.txt","rb");
+        temp=fopen("temp.txt","wb");
+        if(p==NULL||temp==NULL)
+        {
+            printf("\nSorry file not opened!");
+            exit(0);
+        }
+        printf("Enter student ID: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fread(&a,sizeof(a),1,p))
+        {
+            if(a.id==id)
+            {
+                found=1;
+                printf("\nStudent found!\n");
+                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %2f",a.id,a.name,a.address,a.percentage);
+                fflush(stdin);
+                printf("\nAre you sure you want to delete this record? (Y/N): ");
+                scanf("%c",&confirm);
+                fflush(stdin);
+                if(confirm=='y'||confirm=='Y')
+                {
+                    printf("\nRecord deleted sucessfully!");
+                }
+                else
+                {
+                    fwrite(&a,sizeof(a),1,temp);
+                    printf("\nDeletion Cancelled!\n");
+                }
+            }
+            else
+            {
+                fwrite(&a,sizeof(a),1,temp);
+            }
+        }
+        fclose(p);
+        fclose(temp);
+        remove("student.txt");
+        rename("temp.txt", "student.txt");
+
+    if(!found)
+        printf("\nStudent not found!\n");
+    }
+    void searchStudent()
+    {
+        struct Student s;
+        int id=0,found=0,i=0;
+        FILE *p;
+        p=fopen("student.txt","rb");
+        if(p==NULL)
+        {
+            printf("\nSorry file not opened!");
+            exit(0);
+        }
+        printf("Enter student ID: ");
+        scanf("%d",&id);
+        while(fread(&s,sizeof(s),1,p))
+        {
+            if(s.id==id)
+            {
+                found=1;
+                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %f\n",s.id,s.name,s.address,s.percentage);
+                printf("\tMarks\n");
+                for(i=0;i<5;i++)
+                {
+                    printf("%s : %f\n",s.subject[i],s.marks[i]);
+                    fflush(stdin);
+                }
+            }
+        }
+        if(!found)
+        {
+            printf("\nStudent not found!!");
+        }
+        fclose(p);
     }
