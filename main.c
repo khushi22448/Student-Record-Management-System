@@ -146,7 +146,7 @@ return 0;
             printf("\nSorry file not opened!");
             exit(0);
         }
-        printf("Enter student ID: ");
+        printf("\t\t\tEnter student ID: ");
         scanf("%d",&id);
         fflush(stdin);
         while(fread(&a,sizeof(a),1,p))
@@ -154,20 +154,20 @@ return 0;
             if(a.id==id)
             {
                 found=1;
-                printf("\nStudent found!\n");
-                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %2f",a.id,a.name,a.address,a.percentage);
+                printf("\n\t\t\tStudent found!\n");
+                printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f",a.id,a.name,a.address,a.percentage);
                 fflush(stdin);
-                printf("\nAre you sure you want to delete this record? (Y/N): ");
+                printf("\n\t\t\tAre you sure you want to delete this record? (Y/N): ");
                 scanf("%c",&confirm);
                 fflush(stdin);
                 if(confirm=='y'||confirm=='Y')
                 {
-                    printf("\nRecord deleted sucessfully!");
+                    printf("\n\t\t\tRecord deleted sucessfully!");
                 }
                 else
                 {
                     fwrite(&a,sizeof(a),1,temp);
-                    printf("\nDeletion Cancelled!\n");
+                    printf("\n\t\t\tDeletion Cancelled!\n");
                 }
             }
             else
@@ -201,11 +201,11 @@ return 0;
             if(s.id==id)
             {
                 found=1;
-                printf("\t\t\tID: %d \n\t\t\t\Name: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2.f\n",s.id,s.name,s.address,s.percentage);
+                printf("\t\t\tID: %d \n\t\t\t\Name: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
                 printf("\n\t\t\tMarks\n");
                 for(i=0;i<5;i++)
                 {
-                    printf("\t\t\t%s : %2.f\n",s.subject[i],s.marks[i]);
+                    printf("\t\t\t%s : %2f\n",s.subject[i],s.marks[i]);
                     fflush(stdin);
                 }
             }
