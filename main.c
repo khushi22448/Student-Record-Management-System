@@ -216,3 +216,114 @@ return 0;
         }
         fclose(p);
     }
+    void updateStudent()
+    {
+        struct Student s;
+        int id=0,choice=0,found=0,i=0;
+        FILE *p;
+        FILE *temp;
+        p=fopen("student.txt","rb");
+        temp=fopen("temp.txt","wb");
+        if(p==NULL||temp==NULL)
+        {
+            printf("Sorry file not opened!");
+            exit(0);
+        }
+        printf("Enter student ID to update: ");
+        scanf("%d",&id);
+        while(fread(&s,sizeof(s),1,p))
+        {
+            if(s.id==id)
+            {
+                found=1;
+                printf("\nCurrent Informtion\n");
+                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %f\n",s.id,s.name,s.address,s.percentage);
+                printf("\tMarks\n");
+                for(i=0;i<5;i++)
+                {
+                    printf("%s : %f\n",s.subject[i],s.marks[i]);
+                    fflush(stdin);
+                }
+        printf("\nWhat do you want to update?\n");
+        printf("\n1.Name");
+        printf("\n2.Address");
+        printf("\n3.ID");
+        printf("\n4.Marks");
+        printf("\n5.All");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        fflush(stdin);
+        if(choice<1||choice>5)
+        {
+            printf("\n Wrong choice");
+        }
+        else
+        {
+            switch(choice)
+            {
+                case 1:
+                printf("Enter new name: ");
+                gets(s.name);
+                break;
+                case 2:
+                printf("Enter new address: ");
+                gets(s.address);
+                break;
+                case 3:
+                printf("Enter new ID: ");
+                scanf("%d",&s.id);
+                break;
+                case 4:
+                s.total=0;
+                for(i=0;i<5;i++)
+                {
+                    printf("Enter new marks for %s : ",s.subject[i]);
+                    scanf("%f",&s.marks[i]);
+                    s.total+=s.marks[i];
+                }
+                s.percentage=s.total/5;
+                printf("Percentage: %f",s.percentage);
+                break;
+                case 5:
+                fflush(stdin);
+                printf("Enter new name: ");
+                gets(s.name);
+                fflush(stdin);
+                printf("Enter new address: ");
+                gets(s.address);
+                fflush(stdin);
+                printf("Enter new ID: ");
+                scanf("%d",&s.id);
+                fflush(stdin);
+                s.total=0;
+                for(i=0;i<5;i++)
+                {
+                    printf("Enter new marks for %s : ",s.subject[i]);
+                    scanf("%f",&s.marks[i]);
+                    s.total+=s.marks[i];
+                }
+                s.percentage=s.total/5;
+                printf("Percentage: %f",s.percentage);
+                break;
+            }
+            printf("\nRecord updated sucessfully!!\n");
+            fwrite(&s,sizeof(s),1,temp);
+            }
+        }
+            else
+            {
+                fwrite(&s,sizeof(s),1,temp);
+            }
+        
+        fclose(p);
+        fclose(temp);
+        remove("student.txt");
+        rename("temp.txt","student.txt");
+        if(!found)
+        {
+            printf("\nStudent not found!!\n");
+        }
+        
+    }
+    }
+    
