@@ -46,9 +46,9 @@ int main()
       case 3:
       displayStudent();
       break;
-     case 4:
+    /* case 4:
      updateStudent();
-      break;
+      break;*/
       case 5:
       searchStudent();
       break;
@@ -122,11 +122,11 @@ return 0;
             printf("\n Sorry file not found");
             exit(0);
         }
-        printf("\n\t\t\t===Student Information===\n");
-        printf("\n\t\t\tName\tAddress\tId\tPercentage\n");
+        printf("\n\t\t\t====Student Information====\n");
+        printf("\n\t\t%-7s %-25s %-20s %-8s\n", "ID", "Name", "Address", "Percentage\n");
 		while(fread(&b,sizeof(b),1,p))
         {
-		printf("\n\t\t\t%s\t%s\t%d\t%f",b.name,b.address,b.id,b.percentage);
+		printf("\t\t%-7d %-25s %-20s %-8.2f\n",b.id,b.name,b.address,b.percentage);
          
      	}
         fclose(p);
@@ -146,7 +146,7 @@ return 0;
             printf("\nSorry file not opened!");
             exit(0);
         }
-        printf("Enter student ID: ");
+        printf("\t\t\tEnter student ID: ");
         scanf("%d",&id);
         fflush(stdin);
         while(fread(&a,sizeof(a),1,p))
@@ -154,20 +154,20 @@ return 0;
             if(a.id==id)
             {
                 found=1;
-                printf("\nStudent found!\n");
-                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %2f",a.id,a.name,a.address,a.percentage);
+                printf("\n\t\t\tStudent found!\n");
+                printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f",a.id,a.name,a.address,a.percentage);
                 fflush(stdin);
-                printf("\nAre you sure you want to delete this record? (Y/N): ");
+                printf("\n\t\t\tAre you sure you want to delete this record? (Y/N): ");
                 scanf("%c",&confirm);
                 fflush(stdin);
                 if(confirm=='y'||confirm=='Y')
                 {
-                    printf("\nRecord deleted sucessfully!");
+                    printf("\n\t\t\tRecord deleted sucessfully!");
                 }
                 else
                 {
                     fwrite(&a,sizeof(a),1,temp);
-                    printf("\nDeletion Cancelled!\n");
+                    printf("\n\t\t\tDeletion Cancelled!\n");
                 }
             }
             else
@@ -194,18 +194,18 @@ return 0;
             printf("\nSorry file not opened!");
             exit(0);
         }
-        printf("Enter student ID: ");
+        printf("\n\t\t\tEnter student ID: ");
         scanf("%d",&id);
         while(fread(&s,sizeof(s),1,p))
         {
             if(s.id==id)
             {
                 found=1;
-                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %f\n",s.id,s.name,s.address,s.percentage);
-                printf("\tMarks\n");
+                printf("\t\t\tID: %d \n\t\t\t\Name: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
+                printf("\n\t\t\tMarks\n");
                 for(i=0;i<5;i++)
                 {
-                    printf("%s : %f\n",s.subject[i],s.marks[i]);
+                    printf("\t\t\t%s : %2f\n",s.subject[i],s.marks[i]);
                     fflush(stdin);
                 }
             }
