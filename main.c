@@ -6,6 +6,7 @@ void deleteStudent();
 void displayStudent();
 void updateStudent();
 void searchStudent();
+void sortbyrank();
 struct Student{
     char name[50];
     char address[40];
@@ -26,10 +27,11 @@ int main()
     printf("\n\t\t\t3.Display all student");
     printf("\n\t\t\t4.Update student");
     printf("\n\t\t\t5.Search student");
-    printf("\n\t\t\t6.Exit\n");
+    printf("\n\t\t\t6.Display student according to rank");
+    printf("\n\t\t\t7.Exit\n");
     printf("\t\t\tEnter your choice: ");
     scanf("%d",&choice);
-     if(choice<1||choice>6)
+     if(choice<1||choice>7)
     {
         printf("\n Wrong choice");
     }
@@ -53,6 +55,9 @@ int main()
       searchStudent();
       break;
       case 6:
+      sortbyrank();
+      break;
+      case 7:
       exit(0);
     
     }
@@ -201,7 +206,7 @@ return 0;
             if(s.id==id)
             {
                 found=1;
-                printf("\t\t\tID: %d \n\t\t\t\Name: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
+                printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
                 printf("\n\t\t\tMarks\n");
                 for(i=0;i<5;i++)
                 {
@@ -325,5 +330,59 @@ return 0;
         }
         
     }
+    }
+    void sortbyrank()
+    {
+        FILE *p;
+        p=fopen("student.txt","rb");
+        if(p==NULL)
+        {
+            printf("Sorry file not opened!");
+            exit(0);
+        }
+        int capacity=10,count=0,i=0,j=0;
+        struct Student *q;
+        q=malloc(capacity*sizeof(struct Student));
+        if(q==NULL)
+        {
+            printf("Sorry memory not allocated!");
+            exit(0);
+        }
+        struct Student temp;
+        while(fread(&q[count],sizeof(struct Student),1,p))
+        {
+            count++;
+            if(count>=capacity)
+            {
+                capacity*=2;
+                q=realloc(q,capacity*sizeof(struct Student));
+            }
+        }
+        fclose(p);
+        if(count==0)
+        {
+            printf("\nNo student found!!");
+            free(q);
+        }
+        for(i=0;i<count-1;i++)
+        {
+            for(j=i+1;j<count;j++)
+            {
+                if(q[i].percentage<q[j].percentage)
+                {
+                    temp=q[i];
+                    q[i]=q[j];
+                    q[j]=temp;
+                }
+            }
+        }
+        printf("\n=== Student Ranking by Percentage ===\n");
+        printf("\n%-5s %-10s %-20s %-20s %-10s\n", "Rank", "ID", "Name", "Address", "Percentage");
+        for(i=0;i<count;i++)
+        {
+           printf("%-5d %-10d %-20s %-20s %-8.2f\n",i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+
+        }
+        free(q);
     }
     
