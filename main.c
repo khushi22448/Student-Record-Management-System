@@ -93,6 +93,7 @@ return 0;
         scanf("%d",&s.id);
         fflush(stdin);
         printf("\n\t\t\tMarks\n");
+        s.total=0;
         for(i=0;i<5;i++)
         {
            fflush(stdin);
@@ -206,6 +207,7 @@ return 0;
             if(s.id==id)
             {
                 found=1;
+                printf("\n\t\t\t======Student Information========\n");
                 printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
                 printf("\n\t\t\tMarks\n");
                 for(i=0;i<5;i++)
@@ -319,7 +321,7 @@ return 0;
             {
                 fwrite(&s,sizeof(s),1,temp);
             }
-        
+    }
         fclose(p);
         fclose(temp);
         remove("student.txt");
@@ -328,8 +330,6 @@ return 0;
         {
             printf("\nStudent not found!!\n");
         }
-        
-    }
     }
     void sortbyrank()
     {
