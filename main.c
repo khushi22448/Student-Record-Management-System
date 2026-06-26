@@ -21,19 +21,19 @@ int main()
     int choice=0;
     while(1)
     {
-    printf("\n\t\t\t====Student Record Management System====\n");
-    printf("\n\t\t\t1.Add student");
-    printf("\n\t\t\t2.Delete student");
-    printf("\n\t\t\t3.Display all student");
-    printf("\n\t\t\t4.Update student");
-    printf("\n\t\t\t5.Search student");
-    printf("\n\t\t\t6.Display student according to rank");
-    printf("\n\t\t\t7.Exit\n");
+    printf("\n\033[1;4;33m\t\t\t==== Student Record Management System ====\033[0m\n");
+    printf("\n\033[1;36m\t\t\t1.Add student\033[0m");
+    printf("\n\033[1;36m\t\t\t2.Delete student\033[0m");
+    printf("\n\033[1;36m\t\t\t3.Display all student\033[0m");
+    printf("\n\033[1;36m\t\t\t4.Update student\033[0m");
+    printf("\n\033[1;36m\t\t\t5.Search student\033[0m");
+    printf("\n\033[1;36m\t\t\t6.Display student according to rank\033[0m");
+    printf("\n\033[1;36m\t\t\t7.Exit\033[0m\n");
     printf("\t\t\tEnter your choice: ");
     scanf("%d",&choice);
      if(choice<1||choice>7)
     {
-        printf("\n Wrong choice");
+        printf("\n\033[1;31m Wrong choice\033[0m");
     }
     else
     {
@@ -76,7 +76,7 @@ return 0;
         p=fopen("student.txt","ab");
         if(p==NULL)
         {
-            printf("\n Sorry file not found");
+            printf("\n\033[1;31m Sorry file not found\033[0m");
             exit(0);
         }
         do
@@ -106,7 +106,7 @@ return 0;
         }
         s.percentage=s.total/5;
         printf("\n\t\t\tTotal Percentage : %f",s.percentage);
-        printf("\n\t\t\t**Record Added Succesfully**");
+        printf("\n\033[1;32m\t\t\t**Record Added Succesfully**\033[0m");
         fflush(stdin);
          fwrite(&s,sizeof(s),1,p);
         printf("\n\t\t\tAdd more students(y/n)?");
@@ -125,11 +125,11 @@ return 0;
        p=fopen("student.txt","rb");
         if(p==NULL)
         {
-            printf("\n Sorry file not found");
+            printf("\n \033[1;31mSorry file not found\033[0m");
             exit(0);
         }
-        printf("\n\t\t\t====Student Information====\n");
-        printf("\n\t\t%-7s %-25s %-20s %-8s\n", "ID", "Name", "Address", "Percentage\n");
+        printf("\n\033[1;32m\t\t\t====Student Information====\033[0m\n");
+        printf("\n\t\t%-7s %-25s %-20s %-8s\n", "\033[1;34mID", "Name", "Address", "Percentage\033[0m\n");
 		while(fread(&b,sizeof(b),1,p))
         {
 		printf("\t\t%-7d %-25s %-20s %-8.2f\n",b.id,b.name,b.address,b.percentage);
@@ -149,7 +149,7 @@ return 0;
         temp=fopen("temp.txt","wb");
         if(p==NULL||temp==NULL)
         {
-            printf("\nSorry file not opened!");
+            printf("\033[1;31m\nSorry file not opened!\033[0m");
             exit(0);
         }
         printf("\t\t\tEnter student ID: ");
@@ -160,20 +160,20 @@ return 0;
             if(a.id==id)
             {
                 found=1;
-                printf("\n\t\t\tStudent found!\n");
-                printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f",a.id,a.name,a.address,a.percentage);
+                printf("\n\033[1;32m\t\t\tStudent found!\033[0m\n");
+                printf("\033[1;34m\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\033[0m",a.id,a.name,a.address,a.percentage);
                 fflush(stdin);
                 printf("\n\t\t\tAre you sure you want to delete this record? (Y/N): ");
                 scanf("%c",&confirm);
                 fflush(stdin);
                 if(confirm=='y'||confirm=='Y')
                 {
-                    printf("\n\t\t\tRecord deleted sucessfully!");
+                    printf("\n\t\t\t\033[1;31mRecord deleted sucessfully!\033[0m");
                 }
                 else
                 {
                     fwrite(&a,sizeof(a),1,temp);
-                    printf("\n\t\t\tDeletion Cancelled!\n");
+                    printf("\n\033[1;32m\t\t\tDeletion Cancelled!\033[0m\n");
                 }
             }
             else
@@ -187,7 +187,7 @@ return 0;
         rename("temp.txt", "student.txt");
 
     if(!found)
-        printf("\nStudent not found!\n");
+        printf("\n\033[1;31mStudent not found!\033[0m\n");
     }
     void searchStudent()
     {
@@ -197,7 +197,7 @@ return 0;
         p=fopen("student.txt","rb");
         if(p==NULL)
         {
-            printf("\nSorry file not opened!");
+            printf("\n\033[1;31mSorry file not opened!\033[0m");
             exit(0);
         }
         printf("\n\t\t\tEnter student ID: ");
@@ -207,9 +207,9 @@ return 0;
             if(s.id==id)
             {
                 found=1;
-                printf("\n\t\t\t======Student Information========\n");
-                printf("\t\t\tID: %d \n\t\t\tName: %s \n\t\t\tAddress: %s \n\t\t\tPercentage: %2f\n",s.id,s.name,s.address,s.percentage);
-                printf("\n\t\t\tMarks\n");
+                printf("\n\033[1;32m\t\t\t======Student Information========\033[0m\n");
+                printf("\033[1;34m\t\t\tID:\033[0m %d \n\033[1;34m\t\t\tName:\033[0m %s \n\033[1;34m\t\t\tAddress:\033[0m %s \n\033[1;34m\t\t\tPercentage:\033[0m %2f\n",s.id,s.name,s.address,s.percentage);
+                printf("\n\033[1;34m\t\t\tMarks\n\033[0m");
                 for(i=0;i<5;i++)
                 {
                     printf("\t\t\t%s : %2f\n",s.subject[i],s.marks[i]);
@@ -219,7 +219,7 @@ return 0;
         }
         if(!found)
         {
-            printf("\nStudent not found!!");
+            printf("\n\033[1;31mStudent not found!!\033[0m");
         }
         fclose(p);
     }
@@ -233,7 +233,7 @@ return 0;
         temp=fopen("temp.txt","wb");
         if(p==NULL||temp==NULL)
         {
-            printf("Sorry file not opened!");
+            printf("\033[1;31mSorry file not opened!\033[0m");
             exit(0);
         }
         printf("Enter student ID to update: ");
@@ -243,9 +243,9 @@ return 0;
             if(s.id==id)
             {
                 found=1;
-                printf("\nCurrent Informtion\n");
-                printf("ID: %d \nName: %s \nAddress: %s \nPercentage: %f\n",s.id,s.name,s.address,s.percentage);
-                printf("\tMarks\n");
+                printf("\n\033[1;32mCurrent Informtion\033[0m\n");
+                printf("\033[1;34mID:\033[0m %d \n\033[1;34mName:\033[0m %s \n\033[1;34mAddress:\033[0m %s \n\033[1;34mPercentage:\033[0m %f\n",s.id,s.name,s.address,s.percentage);
+                printf("\033[1;34m\tMarks\033[0m\n");
                 for(i=0;i<5;i++)
                 {
                     printf("%s : %f\n",s.subject[i],s.marks[i]);
@@ -262,7 +262,7 @@ return 0;
         fflush(stdin);
         if(choice<1||choice>5)
         {
-            printf("\n Wrong choice");
+            printf("\n\033[1;31m Wrong choice\033[0m");
         }
         else
         {
@@ -313,7 +313,7 @@ return 0;
                 printf("Percentage: %f",s.percentage);
                 break;
             }
-            printf("\nRecord updated sucessfully!!\n");
+            printf("\n\033[1;32mRecord updated sucessfully!!\033[0m\n");
             fwrite(&s,sizeof(s),1,temp);
             }
         }
@@ -328,7 +328,7 @@ return 0;
         rename("temp.txt","student.txt");
         if(!found)
         {
-            printf("\nStudent not found!!\n");
+            printf("\n\033[1;31mStudent not found!!\033[0m\n");
         }
     }
     void sortbyrank()
@@ -337,7 +337,7 @@ return 0;
         p=fopen("student.txt","rb");
         if(p==NULL)
         {
-            printf("Sorry file not opened!");
+            printf("\033[1;31mSorry file not opened!\033[0m");
             exit(0);
         }
         int capacity=10,count=0,i=0,j=0;
@@ -361,7 +361,7 @@ return 0;
         fclose(p);
         if(count==0)
         {
-            printf("\nNo student found!!");
+            printf("\n\033[1;31mNo student found!!\033[0m");
             free(q);
         }
         for(i=0;i<count-1;i++)
@@ -376,8 +376,8 @@ return 0;
                 }
             }
         }
-        printf("\n=== Student Ranking by Percentage ===\n");
-        printf("\n%-5s %-10s %-20s %-20s %-10s\n", "Rank", "ID", "Name", "Address", "Percentage");
+        printf("\n\033[1;32m=== Student Ranking by Percentage ===\033[0m\n");
+        printf("\n%-5s %-10s %-20s %-20s %-10s\n", "\033[1;34mRank", "ID", "Name", "Address", "Percentage\033[0m");
         for(i=0;i<count;i++)
         {
            printf("%-5d %-10d %-20s %-20s %-8.2f\n",i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
