@@ -7,6 +7,7 @@ void displayStudent();
 void updateStudent();
 void searchStudent();
 void sortbyrank();
+int checkduplicateid(int);
 struct Student{
     char name[50];
     char address[40];
@@ -65,6 +66,27 @@ int main()
 }
 return 0;
 }
+int checkduplicateid(int id)
+{
+    struct Student temp;
+    FILE *p;
+    p=fopen("student.txt","rb");
+    if(p==NULL)
+    {
+       printf("\n\033[1;31m Sorry file not found\033[0m");
+        exit(0); 
+    }
+    while(fread(&temp,sizeof(temp),1,p))
+    {
+        if(temp.id==id)
+        {
+            fclose(p);
+            return 1;
+        }
+    }
+    fclose(p);
+    return 0;
+}
   void addStudent()
     { 
     
@@ -81,7 +103,7 @@ return 0;
         }
         do
         {
-        printf("\n\t\t\t===Add Student Information===\n");
+        printf("\n\033[1;32m\t\t\t===Add Student Information===\033[0m\n");
         fflush(stdin);
         printf("\n\t\t\tEnter name of student:");
         gets(s.name);
@@ -89,8 +111,22 @@ return 0;
         printf("\n\t\t\tEnter address:");
         gets(s.address);
         fflush(stdin);
-        printf("\n\t\t\tEnter id :");
-        scanf("%d",&s.id);
+        do
+        {
+            fflush(stdin);
+            printf("\n\t\t\tEnter id :");
+            scanf("%d",&s.id);
+            if(s.id <= 0) 
+            {
+                printf("\033[1;31mInvalid ID! Must be positive.\033[0m\n");
+            } 
+            else if(checkduplicateid(s.id))
+            {
+                printf("\033[1;31mThis ID already exists! Enter a unique ID.\033[0m\n");
+                s.id =-1;
+            }
+            fflush(stdin);
+        } while (s.id<=0||checkduplicateid(s.id));
         fflush(stdin);
         printf("\n\t\t\tMarks\n");
         s.total=0;
@@ -277,8 +313,22 @@ return 0;
                 gets(s.address);
                 break;
                 case 3:
-                printf("Enter new ID: ");
+                do
+            {
+                fflush(stdin);
+                printf("\n\t\t\tEnter new id :");
                 scanf("%d",&s.id);
+                if(s.id <= 0) 
+                {
+                    printf("\033[1;31mInvalid ID! Must be positive.\033[0m\n");
+                } 
+                else if(checkduplicateid(s.id))
+                {
+                    printf("\033[1;31mThis ID already exists! Enter a unique ID.\033[0m\n");
+                    s.id =-1;
+                }
+                fflush(stdin);
+                } while (s.id<=0||checkduplicateid(s.id));
                 break;
                 case 4:
                 s.total=0;
@@ -299,8 +349,22 @@ return 0;
                 printf("Enter new address: ");
                 gets(s.address);
                 fflush(stdin);
-                printf("Enter new ID: ");
+                do
+            {
+                fflush(stdin);
+                printf("\n\t\t\tEnter new id :");
                 scanf("%d",&s.id);
+                if(s.id <= 0) 
+                {
+                    printf("\033[1;31mInvalid ID! Must be positive.\033[0m\n");
+                } 
+                else if(checkduplicateid(s.id))
+                {
+                    printf("\033[1;31mThis ID already exists! Enter a unique ID.\033[0m\n");
+                    s.id =-1;
+                }
+                fflush(stdin);
+                } while (s.id<=0||checkduplicateid(s.id));
                 fflush(stdin);
                 s.total=0;
                 for(i=0;i<5;i++)
