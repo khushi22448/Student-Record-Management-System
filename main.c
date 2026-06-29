@@ -294,7 +294,7 @@ void searchStudent()
 void updateStudent()
 {
     struct Student s;
-    int id=0,choice=0,found=0,i=0;
+    int id=0,choice=0,found=0,i=0,valid;
     FILE *p;
     FILE *temp;
     p=fopen("student.txt","rb");
@@ -340,8 +340,26 @@ void updateStudent()
                 switch(choice)
                 {
                     case 1:
-                        printf(C"Enter new name: ");
-                        gets(s.name);
+                        do
+		                {
+			                valid=1;
+			                fflush(stdin);
+		                    printf(C"Enter new name: ");
+                            gets(s.name);
+                            for(i=0;s.name[i]!='\0';i++)
+                            {
+           	                    if(!(isalpha(s.name[i])||(s.name[i])==' '))
+           	                    {
+           		                    valid=0;
+           		                    break;
+			                    }
+		                    }
+		                    if(valid==0)
+		                    {
+		   	                    printf("n\033[1;31m"C"Invalid name!\033[0m\n");
+		                    }
+       	                }while(valid==0);
+                        fflush(stdin);
                         break;
                     case 2:
                         printf(C"Enter new address: ");
@@ -373,8 +391,26 @@ void updateStudent()
                         break;
                     case 5:
                         fflush(stdin);
-                        printf(C"Enter new name: ");
-                        gets(s.name);
+                        do
+		                {
+			                valid=1;
+			                fflush(stdin);
+		                    printf(C"Enter name of student: ");
+                            gets(s.name);
+                            for(i=0;s.name[i]!='\0';i++)
+                            {
+           	                    if(!(isalpha(s.name[i])||(s.name[i])==' '))
+           	                    {
+           		                    valid=0;
+           		                    break;
+			                    }
+		                    }
+		                    if(valid==0)
+		                    {
+		   	                    printf("n\033[1;31m"C"Invalid name!\033[0m\n");
+		                    }
+       	                }
+		                while(valid==0);
                         fflush(stdin);
                         printf(C"Enter new address: ");
                         gets(s.address);
