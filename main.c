@@ -33,7 +33,7 @@ int main()
         printf("\033[1;36m"C"5. Search student\033[0m\n");
         printf("\033[1;36m"C"6. Display students by rank\033[0m\n");
         printf("\033[1;36m"C"7. Exit\033[0m\n");
-        printf(C"Enter your choice: ");
+        printf( C"Enter your choice: ");
         scanf("%d",&choice);
         if(choice<1||choice>7)
         {
@@ -61,7 +61,6 @@ int main()
     }
     return 0;
 }
-
 int checkduplicateid(int id)
 {
     struct Student temp;
@@ -83,13 +82,11 @@ int checkduplicateid(int id)
     fclose(p);
     return 0;
 }
-
 void addStudent()
 {
     struct Student s;
     s.total=0;
-    int i=0;
-    char name[50];
+    int i=0,j=0;
     char confirm=0;
     int valid;
     FILE *p;
@@ -99,17 +96,18 @@ void addStudent()
         printf("\n\033[1;31m"C"Sorry file not found\033[0m\n");
         exit(0);
     }
-    do
+	do
     {
         printf("\n\033[1;32m"C"=== Add Student Information ===\033[0m\n\n");
         do
 		{
+			valid=1;
 			fflush(stdin);
 		    printf(C"Enter name of student: ");
             gets(s.name);
-           for(i=0;name[i]!='\0';i++)
+           for(i=0;s.name[i]!='\0';i++)
            {
-           	if(!(isalpha(name[i]||name[i]==' ')))
+           	if(!(isalpha(s.name[i])||(s.name[i])==' '))
            	{
            		valid=0;
            		break;
@@ -121,7 +119,7 @@ void addStudent()
 		   }
        	}
 		while(valid==0);
-         fflush(stdin);
+        fflush(stdin);
         printf(C"Enter address: ");
         gets(s.address);
         fflush(stdin);
@@ -140,19 +138,37 @@ void addStudent()
                 s.id = -1;
             }
             fflush(stdin);
-        } while (s.id<=0||checkduplicateid(s.id));
+        } 
+		while (s.id<=0||checkduplicateid(s.id));
         fflush(stdin);
         printf("\n"C"--- Marks ---\n");
         s.total=0;
         for(i=0;i<5;i++)
         {
             fflush(stdin);
-            printf(C"Enter subject name: ");
-            gets(s.subject[i]);
-            fflush(stdin);
-            printf(C"Enter marks: ");
-            scanf("%f",&s.marks[i]);
-            s.total=s.total+s.marks[i];
+            do
+			{
+			  valid=1;
+			 fflush(stdin);
+		     printf(C"Enter subject: ");
+             gets(s.subject[i]);
+            for(j=0;s.subject[i][j]!='\0';j++)
+           {
+           	if(!(isalpha(s.subject[i][j])||(s.subject[i][j])==' '))
+           	{
+           		valid=0;
+           		break;
+			}
+		   }
+		   if(valid==0)
+		   {
+		   	 printf("n\033[1;31m"C"Invalid subject!\033[0m\n");
+		   }
+       	}
+		while(valid==0);
+        printf(C"Enter marks: ");
+        scanf("%f",&s.marks[i]);
+        s.total=s.total+s.marks[i];
         }
         s.percentage=s.total/5;
         printf("\n"C"Total Percentage: %.2f\n", s.percentage);
@@ -167,7 +183,6 @@ void addStudent()
     while(confirm=='y'||confirm=='Y');
     fclose(p);
 }
-
 void displayStudent()
 {
     struct Student b;
