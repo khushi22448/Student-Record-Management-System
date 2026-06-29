@@ -26,13 +26,13 @@ int main()
     while(1)
     {
         printf("\n\033[1;33m"C"==== Student Record Management System ====\033[0m\n");
-        printf("\n\033[1;36m"C"1. Add student\033[0m\n");
-        printf("\033[1;36m"C"2. Delete student\033[0m\n");
-        printf("\033[1;36m"C"3. Display all students\033[0m\n");
-        printf("\033[1;36m"C"4. Update student\033[0m\n");
-        printf("\033[1;36m"C"5. Search student\033[0m\n");
-        printf("\033[1;36m"C"6. Display students by rank\033[0m\n");
-        printf("\033[1;36m"C"7. Exit\033[0m\n");
+        printf("\033[1;36m"C"1. Add student\n");
+        printf(""C"2. Delete student\n");
+        printf(""C"3. Display all students\n");
+        printf(""C"4. Update student\n");
+        printf(""C"5. Search student\n");
+        printf(""C"6. Display students by rank\n");
+        printf(""C"7. Exit\033[0m\n");
         printf( C"Enter your choice: ");
         scanf("%d",&choice);
         if(choice<1||choice>7)
@@ -231,7 +231,7 @@ void deleteStudent()
         {
             found=1;
             printf("\n\033[1;32m"C"Student found!\033[0m\n");
-            printf("\033[1;34m"C"ID: %d\n"C"Name: %s\n"C"Address: %s\n"C"Percentage: %.2f\033[0m\n",
+            printf("\033[1;34m"C"ID:\033[0m %d\n"C"\033[1;34mName: \033[0m %s\n"C"\033[1;34m Address:\033[0m %s\n"C"\033[1;34mPercentage: \033[0m%.2f\n",
                    a.id, a.name, a.address, a.percentage);
             fflush(stdin);
             printf(C"Are you sure you want to delete? (Y/N): ");
