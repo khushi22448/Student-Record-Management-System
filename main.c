@@ -1,9 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+#include<ctype.h>
 #define C "                    "
-
 void addStudent();
 void deleteStudent();
 void displayStudent();
@@ -11,7 +10,6 @@ void updateStudent();
 void searchStudent();
 void sortbyrank();
 int checkduplicateid(int);
-
 struct Student{
     char name[50];
     char address[40];
@@ -45,12 +43,18 @@ int main()
         {
             switch(choice)
             {
-                case 1: addStudent();    break;
-                case 2: deleteStudent(); break;
-                case 3: displayStudent();break;
-                case 4: updateStudent(); break;
-                case 5: searchStudent(); break;
-                case 6: sortbyrank();    break;
+                case 1: addStudent();  
+			    break;
+                case 2: deleteStudent();
+			     break;
+                case 3: displayStudent();
+				break;
+                case 4: updateStudent();
+				 break;
+                case 5: searchStudent();
+				 break;
+                case 6: sortbyrank();    
+				break;
                 case 7: exit(0);
             }
         }
@@ -85,7 +89,9 @@ void addStudent()
     struct Student s;
     s.total=0;
     int i=0;
+    char name[50];
     char confirm=0;
+    int valid;
     FILE *p;
     p=fopen("student.txt","ab");
     if(p==NULL)
@@ -96,10 +102,26 @@ void addStudent()
     do
     {
         printf("\n\033[1;32m"C"=== Add Student Information ===\033[0m\n\n");
-        fflush(stdin);
-        printf(C"Enter name of student: ");
-        gets(s.name);
-        fflush(stdin);
+        do
+		{
+			fflush(stdin);
+		    printf(C"Enter name of student: ");
+            gets(s.name);
+           for(i=0;name[i]!='\0';i++)
+           {
+           	if(!(isalpha(name[i]||name[i]==' ')))
+           	{
+           		valid=0;
+           		break;
+			}
+		   }
+		   if(valid==0)
+		   {
+		   	 printf("n\033[1;31m"C"Invalid name!\033[0m\n");
+		   }
+       	}
+		while(valid==0);
+         fflush(stdin);
         printf(C"Enter address: ");
         gets(s.address);
         fflush(stdin);
