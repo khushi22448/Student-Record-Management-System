@@ -166,10 +166,18 @@ void addStudent()
 		   }
        	}
 		while(valid==0);
-        printf(C"Enter marks: ");
-        scanf("%f",&s.marks[i]);
+		do
+		{
+         printf(C"Enter marks: ");
+         scanf("%f",&s.marks[i]);
+         if(s.marks[i]<0||s.marks[i]>100)
+         {
+        	 printf("\033[1;31m"C"Invalid marks!Marks should be between 0 and 100\033[0m\n");
+		 }
+     	}
+        while(s.marks[i]<0||s.marks[i]>100);
         s.total=s.total+s.marks[i];
-        }
+    }
         s.percentage=s.total/5;
         printf("\n"C"Total Percentage: %.2f\n", s.percentage);
         printf("\033[1;32m"C"** Record Added Successfully **\033[0m\n");
@@ -201,7 +209,6 @@ void displayStudent()
     }
     fclose(p);
 }
-
 void deleteStudent()
 {
     struct Student a;
@@ -252,7 +259,6 @@ void deleteStudent()
     if(!found)
         printf("\n\033[1;31m"C"Student not found!\033[0m\n");
 }
-
 void searchStudent()
 {
     struct Student s;
@@ -290,7 +296,6 @@ void searchStudent()
     }
     fclose(p);
 }
-
 void updateStudent()
 {
     struct Student s;
