@@ -25,7 +25,7 @@ int main()
     int choice=0;
     while(1)
     {
-        printf("\n\033[1;4;33m"C"==== Student Record Management System ====\033[0m\n");
+        printf("\n\033[1;33m"C"==== Student Record Management System ====\033[0m\n");
         printf("\n\033[1;36m"C"1. Add student\033[0m\n");
         printf("\033[1;36m"C"2. Delete student\033[0m\n");
         printf("\033[1;36m"C"3. Display all students\033[0m\n");
@@ -385,12 +385,21 @@ void updateStudent()
                         } while (s.id<=0||checkduplicateid(s.id));
                         break;
                     case 4:
-                        s.total=0;
-                        for(i=0;i<5;i++) {
-                            printf(C"Enter new marks for %s: ", s.subject[i]);
+                    s.total=0;
+                    for(i=0;i<5;i++) 
+                    {
+                        do
+		                {
+                            printf(C"Enter new marks for %s: ",s.subject[i]);
                             scanf("%f",&s.marks[i]);
-                            s.total+=s.marks[i];
-                        }
+                            if(s.marks[i]<0||s.marks[i]>100)
+                            {
+        	                    printf("\033[1;31m"C"Invalid marks!Marks should be between 0 and 100\033[0m\n");
+		                    }
+     	                }
+                        while(s.marks[i]<0||s.marks[i]>100);
+                        s.total+=s.marks[i];
+                    }
                         s.percentage=s.total/5;
                         printf(C"Percentage: %.2f\n", s.percentage);
                         break;
@@ -434,9 +443,18 @@ void updateStudent()
                         } while (s.id<=0||checkduplicateid(s.id));
                         fflush(stdin);
                         s.total=0;
-                        for(i=0;i<5;i++) {
-                            printf(C"Enter new marks for %s: ", s.subject[i]);
-                            scanf("%f",&s.marks[i]);
+                        for(i=0;i<5;i++) 
+                        {
+                            do
+		                    {
+                                printf(C"Enter new marks for %s: ",s.subject[i]);
+                                scanf("%f",&s.marks[i]);
+                                if(s.marks[i]<0||s.marks[i]>100)
+                                {
+        	                        printf("\033[1;31m"C"Invalid marks!Marks should be between 0 and 100\033[0m\n");
+		                        }
+     	                    }
+                            while(s.marks[i]<0||s.marks[i]>100);
                             s.total+=s.marks[i];
                         }
                         s.percentage=s.total/5;
