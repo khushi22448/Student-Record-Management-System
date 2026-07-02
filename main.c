@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<conio.h>
 #include<ctype.h>
 #define C "                    "
 void addStudent();
@@ -69,14 +70,28 @@ int main()
 int login()
 {
     char name[20],password[10];
-    int attempts=0;
+    int attempts=0,i=0;
+    char ch=0;
     while(attempts<3)
     {
         printf("\n\033[1;33m"C"=====Login Requried!=====\033[0m\n");
         printf("\n"C"Enter username: ");
         scanf("%s",name);
         printf("\n"C"Enter password: ");
-        scanf("%s",password);
+        while(1)
+        {
+            ch=getch();
+            if(ch==13)
+            {
+                password[i]='\0';
+                break;
+            }
+            else
+            {
+                password[i++]=ch;
+                printf("*");
+            }
+        }
         if(strcmp(name,"user")==0&&strcmp(password,"12345")==0)
         {
             printf("\n\033[1;32m"C"Login successful! Access granted!\033[0m\n");
