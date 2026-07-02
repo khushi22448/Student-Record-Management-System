@@ -10,6 +10,7 @@ void updateStudent();
 void searchStudent();
 void sortbyrank();
 int checkduplicateid(int);
+int login();
 struct Student{
     char name[50];
     char address[40];
@@ -23,6 +24,10 @@ struct Student{
 int main()
 {
     int choice=0;
+    if(!login())
+    {
+        exit(0);
+    }
     while(1)
     {
         printf("\n\033[1;33m"C"==== Student Record Management System ====\033[0m\n");
@@ -60,6 +65,31 @@ int main()
         }
     }
     return 0;
+}
+int login()
+{
+    char name[20],password[10];
+    int attempts=0;
+    while(attempts<3)
+    {
+        printf("\n\033[1;33m"C"=====Login Requried!=====\033[0m\n");
+        printf("\n"C"Enter username: ");
+        scanf("%s",name);
+        printf("\n"C"Enter password: ");
+        scanf("%s",password);
+        if(strcmp(name,"user")==0&&strcmp(password,"12345")==0)
+        {
+            printf("\n\033[1;32m"C"Login successful! Access granted!\033[0m\n");
+            return 1;
+        }
+        else
+        {
+            printf("\n\033[1;31m"C"Invalid username or password! Access denied!!\033[0m\n");
+            attempts++;
+        }
+    }
+    printf("\n\033[1;31m"C"Too many failed attempts!! Try again later!\033[0m\n");
+    return 0; 
 }
 int checkduplicateid(int id)
 {
