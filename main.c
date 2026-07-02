@@ -535,6 +535,8 @@ void sortbyrank()
         exit(0);
     }
     int capacity=10,count=0,i=0,j=0;
+    int choice=0;
+    struct Student temp;
     struct Student *q;
     q=malloc(capacity*sizeof(struct Student));
     if(q==NULL)
@@ -542,7 +544,6 @@ void sortbyrank()
         printf(C"Sorry memory not allocated!\n");
         exit(0);
     }
-    struct Student temp;
     while(fread(&q[count],sizeof(struct Student),1,p))
     {
         count++;
@@ -571,11 +572,53 @@ void sortbyrank()
             }
         }
     }
-    printf("\n\033[1;32m"C"=== Student Ranking by Percentage ===\033[0m\n\n");
-    printf(C"\033[1;34m%-5s %-10s %-20s %-20s %-10s\033[0m\n", "Rank", "ID", "Name", "Address", "Percentage");
-    for(i=0;i<count;i++)
+    printf("\n\033[1;36m"C"1.Display top 3 students.");
+    printf("\n"C"2.Display top 5 students.");
+    printf("\n"C"3.Dispay top 10 students.");
+    printf("\n"C"4.Dispay all students.\033[0m");
+    printf("\n"C"Enter your choice: ");
+    scanf("%d",&choice);
+    if(choice<1||choice>4)
     {
-        printf(C"%-5d %-10d %-20s %-20s %-8.2f\n", i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+        printf("\n\033[1;31m"C"Wrong choice!\033[0m");
+    }
+    else
+    {
+        switch(choice)
+        {
+            case 1:
+            printf("\n\033[1;32m"C"=====Top 3 students=====\033[0m\n");
+            printf(C"\033[1;34m%-5s %-10s %-20s %-20s %-10s\033[0m\n", "Rank", "ID", "Name", "Address", "Percentage");
+            for(i=0;i<3;i++)
+            {
+                printf(C"%-5d %-10d %-20s %-20s %-8.2f\n", i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+            }
+            break;
+        case 2:
+            printf("\n\033[1;32m"C"=====Top 5 students=====\033[0m\n");
+            printf(C"\033[1;34m%-5s %-10s %-20s %-20s %-10s\033[0m\n", "Rank", "ID", "Name", "Address", "Percentage");
+            for(i=0;i<5;i++)
+            {
+                printf(C"%-5d %-10d %-20s %-20s %-8.2f\n", i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+            }
+            break;
+        case 3:
+            printf("\n\033[1;32m"C"=====Top 10 students=====\033[0m\n");
+            printf(C"\033[1;34m%-5s %-10s %-20s %-20s %-10s\033[0m\n", "Rank", "ID", "Name", "Address", "Percentage");
+            for(i=0;i<10;i++)
+            {
+                printf(C"%-5d %-10d %-20s %-20s %-8.2f\n", i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+            }
+            break;  
+        case 4:
+            printf("\n\033[1;32m"C"=== Student Ranking by Percentage ===\033[0m\n\n");
+            printf(C"\033[1;34m%-5s %-10s %-20s %-20s %-10s\033[0m\n", "Rank", "ID", "Name", "Address", "Percentage");
+            for(i=0;i<count;i++)
+            {
+                printf(C"%-5d %-10d %-20s %-20s %-8.2f\n", i+1, q[i].id, q[i].name, q[i].address, q[i].percentage);
+            }
+        break;
+        }
     }
     free(q);
 }
